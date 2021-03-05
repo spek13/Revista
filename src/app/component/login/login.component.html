@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Iniciar Sesion</h5>
+              <div class="form-group">
+                  <label for="exampleDropdownFormEmail1">Corre electronico</label>
+                  <input type="email" class="form-control" id="exampleDropdownFormEmail1" [(ngModel)]="user.email" placeholder="email@example.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="inputPassword">Contraseña</label>
+                <input type="password" id="inputPassword" class="form-control" [(ngModel)]="user.password" placeholder="Contraseña" required>
+              </div>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="signIn()" type="submit">Acceder</button>
+              <hr class="my-4">
+              <!-- <a class="dropdown-item" [routerLink]="['/registro']" routerLinkActive="router-link-active" >Crear una cuenta</a>
+              <a class="col-md-7 " [routerLink]="['/lector']" routerLinkActive="router-link-active" >Inicio</a> -->
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                  </div>
+                  <div class="col-5">
+                    <a class="dropdown-item" [routerLink]="['/registro']" routerLinkActive="router-link-active" >Crear una cuenta</a>
+                  </div>
+                  <div class="col">
+                    <a class="dropdown-item" [routerLink]="['/lector']" routerLinkActive="router-link-active" >Inicio</a>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+ 

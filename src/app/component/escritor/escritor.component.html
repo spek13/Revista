@@ -1,0 +1,300 @@
+
+<div *ngIf="userType == '0'">
+  <section class="jumbotron text-center">
+    <div class="text-right">
+      <button type="button" class="btn btn-warning btn-sm" (click)="cerrarSesion()">Cerrar sesion</button>
+    </div>
+    <div class="container">
+      <h1>Revistas del Usuario</h1>
+      <p class="lead text-muted">
+        La Universidad Politécnica de Chiapas les da la más cordial bienvenida a este portal, a través del cual, y gracias a la implementación de tecnologías de la información y comunicación de vanguardia nos es posible brindar más y mejores servicios para la comunidad estudiantil, docente y administrativa de nuestra Universidad, asimismo es un medio de comunicación que nos permite mantener informada a la sociedad sobre las diversas acciones que realizamos, los avances de nuestros programas académicos, de nuestros alumnos, profesores e investigadores.
+      </p>
+      <p>
+        <!-- <a (click)="createRevista()" class="btn btn-primary my-2">Crear Revista</a> -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+          Crear Revista
+        </button>
+        <!-- <a href="#" class="btn btn-secondary my-2">Secondary action</a> -->
+      </p>
+    </div>
+  </section>
+  
+  
+  <div class="album py-5 bg-light">
+    <div class="container">
+  
+      <div class="row">
+        <div class="col-md-4" *ngFor="let revista of revistas; let i = index">
+  
+          <div class="card mb-4 shadow-sm">
+            <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
+            <img src="{{urlApi}}{{revista.portada}}" class="bd-placeholder-img card-img-top" class="card-img-top" width="100%" height="225" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{revista.name}}</h5>
+              <p class="card-text">{{revista.description}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary"  (click)="verImage(revista.id)">Ver</button>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-auto">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" (click)="test(revista.id, revista.name)" data-target="#addImage"  >Editar {{revista.name}}</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Editar {{revista.name}}</button> -->
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#deleteMagazineCon" (click)="setMagazineId(revista.id)">Eliminar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Usuario type 1 publicador -->
+
+<div *ngIf="userType == '1'">
+  <section class="jumbotron text-center">
+    <div class="text-right">
+      <button type="button" class="btn btn-warning btn-sm" (click)="cerrarSesion()">Cerrar Sesion</button>
+    </div>
+    <div class="container">
+      <h1>Revistas a publicar</h1>
+      <p class="lead text-muted">
+        La Universidad Politécnica de Chiapas les da la más cordial bienvenida a este portal, a través del cual, y gracias a la implementación de tecnologías de la información y comunicación de vanguardia nos es posible brindar más y mejores servicios para la comunidad estudiantil, docente y administrativa de nuestra Universidad, asimismo es un medio de comunicación que nos permite mantener informada a la sociedad sobre las diversas acciones que realizamos, los avances de nuestros programas académicos, de nuestros alumnos, profesores e investigadores.
+      </p>
+    </div>
+  </section>
+  
+
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink>Revistas para publicar</a>
+      <ng-template ngbNavContent>
+        <div class="album py-5 bg-light">
+          <div class="container">
+        
+            <div class="row">
+              <div class="col-md-4" *ngFor="let revista of revistas; let i = index">
+        
+                <div class="card mb-4 shadow-sm">
+                  <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
+                  <img src="{{urlApi}}{{revista.portada}}" class="bd-placeholder-img card-img-top" class="card-img-top" width="100%" height="225" alt="...">
+                  <!-- <img src="https://i.blogs.es/07fc5b/el-libro-de-imagenes-3/450_1000.png" class="card-img-top" alt="..."> -->
+                  <div class="card-body">
+                    <p> Realizado por: {{revista.create_username}} </p>
+                    <p> Creado: {{revista.created_at}} </p>
+                    <h5 class="card-title">{{revista.name}}</h5>
+                    <p class="card-text">{{revista.description}}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="verImage(revista.id)">Ver</button>
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-auto" *ngIf="!revista.status; else notShow ">
+                              <button type="button" class="btn btn-sm btn-outline-secondary" (click)="publicarRevista(revista.id,revista.name)">Publicar {{revista.name}}</button>
+                            </div>
+                            <ng-template #notShow>
+                              <div class="col-auto">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" (click)="noPublicarRevista(revista.id,revista.name)">Dejar de publicar {{revista.name}}</button>
+                              </div>
+                            </ng-template>
+                            
+                          </div>
+                        </div>
+                        <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Editar {{revista.name}}</button> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink>Administrar usuarios</a>
+      <ng-template ngbNavContent>
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let user of users; let i = index" >
+            <tr>
+              <th scope="row">{{i+1}}</th>
+              <td>{{user.username}}</td>
+              <td>{{user.email}}</td>
+              <td>
+                <div *ngIf="user.type == 1 else showUserType">
+                  Publicador
+                </div>
+                <ng-template #showUserType>
+                  Escritor
+                </ng-template>  
+              </td>
+              <td>
+                  <button type="button" class="btn btn-success" *ngIf="user.status; else notShowUser " (click)="deshabilitarUser(user.id)">Deshabilitar usuario</button>
+                  <ng-template #notShowUser>
+                    <button type="button" class="btn btn-primary" (click)="habilitarUser(user.id)" >Habilitar usuario</button>
+                  </ng-template>  
+                  <button type="button" class="btn btn-danger" (click)="setUserId(user.id,user.username)" data-toggle="modal" data-target="#deleteUserCon" >Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
+  
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nueva revista</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <form> -->
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Titulo</label>
+            <input type="text" class="form-control" [(ngModel)]="revista.name" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Descripción:</label>
+            <textarea type="text" class="form-control" [(ngModel)]="revista.description" id="message-text"></textarea>
+          </div>
+        <!-- </form> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"  >Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="createRevista()" data-dismiss="modal" >Crear revista</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="deleteUserCon" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar {{userName}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+      <div class="modal-body">
+        <h5>
+          Si elimina este usuario borrara todas las revistas creadas por {{userName}}
+        </h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"  >Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="deleteUser(userId)" data-dismiss="modal" >Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteMagazineCon" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar {{userName}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+      <div class="modal-body">
+        <h5>
+          Si elimina esta revista borrara todo su contenido.
+        </h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"  >Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="deleteRevista(magazineId)" data-dismiss="modal" >Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="addImage" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{nameRevista}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <li ngbNavItem>
+          <a ngbNavLink>Subir imagenes</a>
+          <ng-template ngbNavContent>
+            <div class="modal-body">
+              <div class="form-group">
+                 <label for="recipient-name" class="col-form-label">Titulo:</label>
+                 <input type="text" class="form-control" [(ngModel)]="dataImg.name">
+               </div>
+               <div class="form-group">
+                 <label for="message-text" class="col-form-label">Descripción:</label>
+                 <textarea class="form-control" [(ngModel)]="dataImg.description" ></textarea>
+               </div>
+               <div class="form-group">
+                 <label for="message-text" class="col-form-label">Imagenes:</label>
+                 <input #file type="file" id="image"  name="image" accept='image/*'   class="form-control"  (change)="selectFile($event)" multiple/>
+               </div>
+     
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-dismiss="modal"  >Cancelar</button>
+                 <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="agregarContenido()" >Agregar contenido</button>
+               </div>
+           </div>
+          </ng-template>
+        </li>
+        <li ngbNavItem>
+          <a ngbNavLink>Editar Imagenes</a>
+          <ng-template ngbNavContent>
+          <div class="modal-body">
+            <div class="row" >
+              <div class="col-sm-6" *ngFor="let item of contenidoImage">
+                <div class="card" >
+                  <div class="card-body">
+                    <img src="{{urlApi}}{{item.image}}" alt="..." class="img-thumbnail">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="deleteImage(item.id)">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+    </div>
+  </div>
+</div> 

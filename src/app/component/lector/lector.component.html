@@ -1,0 +1,425 @@
+<!-- <header> -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-light">
+    <a class="navbar-brand" href="#"> <img  width="100" height="50" src="https://photos1.blogger.com/blogger/838/2338/1600/logo%20up.1.jpg" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="color: black;">Menú</span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <!-- <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a> -->
+          <a class="btn btn-sm btn-outline-primary" href="/login">Iniciar sesion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+        </li>
+        <li class="nav-item">
+          <a  style="color: black;"class="dropdown-item" href="/filtro/recomendado">Revistas más vistas</a>
+        </li>
+        <li class="nav-item">
+          <a style="color: black;" class="dropdown-item" href="/filtro/revistas">Todas las revistas</a>
+        </li>
+        <!-- <li class="nav-item dropdown" >
+          <a class="nav-link dropdown-toggle" role="button" style="color: black;" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a style="color: black;" class="dropdown-item" href="#"></a>
+            <a  style="color: black;"class="dropdown-item" href="/filtro/recomendado">Revistas más vistas</a>
+            <a style="color: black;" class="dropdown-item" href="/filtro/revistas">Todas las revistas</a>
+          </div>
+        </li> -->
+      </ul>
+      <!-- <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+      </form> -->
+      <div>
+        <input class="dropdown-menu" [(ngModel)]="searchText" placeholder="Buscar revista" (keyup)="showSearchResults($event)" class="search-input"/>
+        <div class="list-group search-results float-right" *ngIf="searching === true">
+          <div *ngFor="let item of revistas | search : searchText">
+            <a href="" (click)="verRevista(item.id)" class="list-group-item list-group-item-action flex-column align-items-start ">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{item.name}}</h5>
+                <small>{{item.date_public}}</small>
+              </div>
+              <p class="mb-1">{{item.description}}</p>
+              <small>{{item.create_username}}</small>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- <ul *ngIf="searching === true" class="search-results">
+    <li *ngFor="let item of revistas | search : searchText">
+      <a >{{ item.name }}</a>
+    </li>
+  </ul> -->
+
+  <!-- <div class="list-group search-results float-right" *ngIf="searching === true">
+    <div *ngFor="let item of revistas | search : searchText">
+      <a href="" (click)="verRevista(item.id)" class="list-group-item list-group-item-action flex-column align-items-start ">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{item.name}}</h5>
+          <small>{{item.date_public}}</small>
+        </div>
+        <p class="mb-1">{{item.description}}</p>
+        <small>{{item.create_username}}</small>
+      </a>
+    </div>
+  </div> -->
+  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" 
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav> -->
+<!-- </header> -->
+
+<main role="main" class="container">
+  <br>
+  <br>
+  <br>
+  <br>
+
+<div class="container">
+  <div class="col-md-6 px-0">
+    <h1 class="display-4 font-italic">Revistas de la UPCH</h1>
+    <p class="lead my-3">Con estas herramientas tecnológicas la UPChiapas se mantiene a la vanguardia como una  institución en donde la ciencia y la tecnología constituyen los ingredientes nodales en la formación de profesionales que están convocados a ser actores de un nuevo impulso en el desarrollo de nuestro Estado.</p>
+  </div>
+    <!-- <header class="blog-header py-3">
+      <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1">
+          <a class="text-muted"><img  width="100" height="50" src="https://photos1.blogger.com/blogger/838/2338/1600/logo%20up.1.jpg" alt=""></a>
+        </div>
+        <div class="col-4 text-center">
+            <h3>
+                <a class="blog-header-logo text-dark" >Universidad Politécnica de Chiapas</a>
+            </h3>
+        </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+          <a class="btn btn-sm btn-outline-secondary" href="/login">Iniciar sesion</a>
+        </div>
+      </div>
+    </header> -->
+  
+    <!-- <div class="nav-scroller py-1 mb-2">
+      <nav class="nav d-flex justify-content-between">
+        <a class="p-2 text-muted" href="#">World</a>
+        <a class="p-2 text-muted" href="#">U.S.</a>
+        <a class="p-2 text-muted" href="#">Technology</a>
+        <a class="p-2 text-muted" href="#">Design</a>
+        <a class="p-2 text-muted" href="#">Culture</a>
+        <a class="p-2 text-muted" href="#">Business</a>
+        <a class="p-2 text-muted" href="#">Politics</a>
+        <a class="p-2 text-muted" href="#">Opinion</a>
+        <a class="p-2 text-muted" href="#">Science</a>
+        <a class="p-2 text-muted" href="#">Health</a>
+        <a class="p-2 text-muted" href="#">Style</a>
+        <a class="p-2 text-muted" href="#">Travel</a>
+      </nav>
+    </div> -->
+  
+    <hr>
+
+    <div class="jumbotron text-white rounded bg-dark">
+      <!-- <div class="col-md-6 px-0">
+        <h1 class="display-4 font-italic">Revistas de la UPCH</h1>
+        <p class="lead my-3">Con estas herramientas tecnológicas la UPChiapas se mantiene a la vanguardia como una  institución en donde la ciencia y la tecnología constituyen los ingredientes nodales en la formación de profesionales que están convocados a ser actores de un nuevo impulso en el desarrollo de nuestro Estado.</p>
+      </div> -->
+        <ngb-carousel #carousel [pauseOnHover]="pauseOnHover" (slide)="onSlide($event)">
+          <ng-template ngbSlide *ngFor="let pagina of revistas; index as i">
+            <div>
+              <img src="{{urlApi}}{{pagina.portada}}"  class="d-block w-100" height="500" >
+              <p class="carousel-caption"><a class="btn btn-lg btn-primary" (click)="verRevista(pagina.id)" role="button">Ver revista</a></p>
+            </div>
+          </ng-template>
+        </ngb-carousel>
+    </div>
+  
+    <div class="row mb-2">
+      <div class="col-md-6" *ngFor="let revista of revistas; let i = index">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">Por: {{revista.create_username}}</strong>
+            <h3 class="mb-0">{{revista.name}}</h3>
+            <div class="mb-1 text-muted">{{revista.date_public}}</div>
+            <!-- <p class="mb-auto">{{revista.description}}</p> -->
+            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="verRevista(revista.id)" style="width: 90px;" > Ver revista </button>
+            <!-- <a class="buto" (click)="verRevista(revista.id)">Ver revista</a> -->
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <!-- <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
+            <img src="{{urlApi}}{{revista.portada}}" class="bd-placeholder-img" width="180" height="250"  alt="...">
+        </div>
+        </div>
+      </div>
+      <!-- class="bd-placeholder-img" width="250" height="100%" -->
+      <!-- <div class="col-md-6">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-success">Design</strong>
+            <h3 class="mb-0">Post title</h3>
+            <div class="mb-1 text-muted">Nov 11</div>
+            <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="stretched-link">Continue reading</a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 blog-main">
+      <h3 class="pb-4 mb-4 font-italic border-bottom">
+        From the Firehose
+      </h3>
+
+      <div class="blog-post">
+        <h2 class="blog-post-title">Sample blog post</h2>
+        <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+
+        <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
+        <hr>
+        <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+        <blockquote>
+          <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+        </blockquote>
+        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        <h2>Heading</h2>
+        <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <!-- <h3>Sub-heading</h3>
+        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+        <pre><code>Example code block</code></pre>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
+        <h3>Sub-heading</h3>
+        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <ul>
+          <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
+          <li>Donec id elit non mi porta gravida at eget metus.</li>
+          <li>Nulla vitae elit libero, a pharetra augue.</li>
+        </ul>
+        <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
+        <ol>
+          <li>Vestibulum id ligula porta felis euismod semper.</li>
+          <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
+          <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
+        </ol>
+        <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p> -->
+      </div>
+
+      <!-- <div class="blog-post">
+        <h2 class="blog-post-title">Another blog post</h2>
+        <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
+
+        <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+        <blockquote>
+          <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+        </blockquote>
+        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      </div>
+
+      <div class="blog-post">
+        <h2 class="blog-post-title">New feature</h2>
+        <p class="blog-post-meta">December 14, 2013 by <a href="#">Chris</a></p>
+
+        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <ul>
+          <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
+          <li>Donec id elit non mi porta gravida at eget metus.</li>
+          <li>Nulla vitae elit libero, a pharetra augue.</li>
+        </ul>
+        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
+      </div> -->
+
+
+
+    </div>
+
+    <aside class="col-md-4 blog-sidebar">
+      <div class="p-4 mb-3 bg-light rounded">
+        <h4 class="font-italic">Información del mes</h4>
+        <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+      </div>
+
+      <div class="p-4">
+        <h4 class="font-italic">Revistas</h4>
+        <ol class="list-unstyled mb-0">
+          <li><a href="#">Enero 2020</a></li>
+          <li><a href="#">Febrero 2020</a></li>
+          <li><a href="#">Marzo 2020</a></li>
+          <li><a href="#">Abril 2020</a></li>
+          <li><a href="#">Mayo 2020</a></li>
+          <!-- <li><a href="#">October 2013</a></li>
+          <li><a href="#">September 2013</a></li>
+          <li><a href="#">August 2013</a></li>
+          <li><a href="#">July 2013</a></li>
+          <li><a href="#">June 2013</a></li>
+          <li><a href="#">May 2013</a></li>
+          <li><a href="#">April 2013</a></li> -->
+        </ol>
+      </div>
+
+      <div class="p-4">
+        <h4 class="font-italic">Siguenos en:</h4>
+        <ol class="list-unstyled">
+          <li><a href="https://twitter.com/PolitecnicaChis">Twitter</a></li>
+          <li><a href="https://www.facebook.com/PolitecnicaChis">Facebook</a></li>
+          <li><a href="https://www.youtube.com/channel/UC1GfxkzNvM-CvZZP4ayrGMQ">Youtube</a></li>
+          <li><a href="https://www.instagram.com/upchiapas/">Instagram</a></li>
+        </ol>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+  <!-- <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        <h3 class="pb-4 mb-4 font-italic border-bottom">
+          From the Firehose
+        </h3>
+  
+        <div class="blog-post">
+          <h2 class="blog-post-title">Sample blog post</h2>
+          <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+  
+          <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
+          <hr>
+          <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+          <blockquote>
+            <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+          </blockquote>
+          <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+          <h2>Heading</h2>
+          <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+          <h3>Sub-heading</h3>
+          <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+          <pre><code>Example code block</code></pre>
+          <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
+          <h3>Sub-heading</h3>
+          <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <ul>
+            <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
+            <li>Donec id elit non mi porta gravida at eget metus.</li>
+            <li>Nulla vitae elit libero, a pharetra augue.</li>
+          </ul>
+          <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
+          <ol>
+            <li>Vestibulum id ligula porta felis euismod semper.</li>
+            <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
+            <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
+          </ol>
+          <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
+        </div>
+  
+        <div class="blog-post">
+          <h2 class="blog-post-title">Another blog post</h2>
+          <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
+  
+          <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+          <blockquote>
+            <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+          </blockquote>
+          <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+          <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        </div>
+  
+        <div class="blog-post">
+          <h2 class="blog-post-title">New feature</h2>
+          <p class="blog-post-meta">December 14, 2013 by <a href="#">Chris</a></p>
+  
+          <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <ul>
+            <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
+            <li>Donec id elit non mi porta gravida at eget metus.</li>
+            <li>Nulla vitae elit libero, a pharetra augue.</li>
+          </ul>
+          <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+          <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
+        </div>
+  
+        <nav class="blog-pagination">
+          <a class="btn btn-outline-primary" href="#">Older</a>
+          <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
+        </nav>
+  
+      </div>
+  
+      <aside class="col-md-4 blog-sidebar">
+        <div class="p-4 mb-3 bg-light rounded">
+          <h4 class="font-italic">About</h4>
+          <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        </div>
+  
+        <div class="p-4">
+          <h4 class="font-italic">Archives</h4>
+          <ol class="list-unstyled mb-0">
+            <li><a href="#">March 2014</a></li>
+            <li><a href="#">February 2014</a></li>
+            <li><a href="#">January 2014</a></li>
+            <li><a href="#">December 2013</a></li>
+            <li><a href="#">November 2013</a></li>
+            <li><a href="#">October 2013</a></li>
+            <li><a href="#">September 2013</a></li>
+            <li><a href="#">August 2013</a></li>
+            <li><a href="#">July 2013</a></li>
+            <li><a href="#">June 2013</a></li>
+            <li><a href="#">May 2013</a></li>
+            <li><a href="#">April 2013</a></li>
+          </ol>
+        </div>
+  
+        <div class="p-4">
+          <h4 class="font-italic">Elsewhere</h4>
+          <ol class="list-unstyled">
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Facebook</a></li>
+          </ol>
+        </div>
+      </aside>
+  
+    </div>
+  
+  </main> -->
